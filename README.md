@@ -1,4 +1,4 @@
-# Boilerplate Code for Taskwarrior Hooks in Golang
+# Boilerplate Code for Taskwarrior Hooks in Golang (Work in Progress)
 
 [Taskwarrior](https://taskwarrior.org/) is a Free and Open Source Software that manages your TODO list from the command line. It allows it's users to create [hooks](https://taskwarrior.org/docs/hooks), which extent the functionality of this tool. The community around Taskwarrior created many examples and tutorials for writing hooks in Python (e.g. [this guide](https://taskwarrior.org/docs/hooks_guide/)), but there is significantly smaller amount of similar resources for other languages.
 
