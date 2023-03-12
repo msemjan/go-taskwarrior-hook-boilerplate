@@ -57,9 +57,11 @@ which will delete the hook from the `~/.task/hooks` folder.
 
 According to the Taskwarrior's [Github page](https://github.com/GothenburgBitFactory/taskwarrior/blob/develop/docs/rfcs/task.md), there MAY be other fields than those listed in a task definition in the documentation. Such fields MUST be preserved intact by any client, which means that if a task is downloaded that contains an unrecognized field, that field MUST not be modified, and MUST continue to exist in the task. User Defined Attributes (UDAs) are considered additional fields.
 
-At the moment, there is no support for additional unrecognized fields by this boilerplate. Moreover, some attributes haven't been implemented yet, for example those used by recurrent tasks. 
+At the moment, there is no support for additional unrecognized fields by this boilerplate, but all standard attributes are implemented. If you are using any User Defined Attributes (UDAs), you need to add them into the `Task` structure in `src/task.go`, and update the code whenever you add new UDAs.
+
+The last limitation is that at the moment, all dates are stored in the `Task struct` as `*string` so I can a) use `omitempty` when marshaling/unmarshaling JSONs, b) I don't have to implement `json.Unmarshaler` interface to parse them. 
 
 ## To-Do
 
-- [ ] Implement all the attributes from the Taskwarrior's [Github page](https://github.com/GothenburgBitFactory/taskwarrior/blob/develop/docs/rfcs/task.md)
 - [ ] Add more examples? Maybe?
+- [ ] Create a helper function that takes the date string and returns a date or implement (un)marshaler interface for a custom time `struct`, which I can use instead of `*string`
