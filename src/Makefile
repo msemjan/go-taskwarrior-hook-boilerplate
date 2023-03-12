@@ -1,4 +1,4 @@
-BIN_NAME=on-modify.log-changes
+BIN_NAME=my-hook-name
 
 all: build
 

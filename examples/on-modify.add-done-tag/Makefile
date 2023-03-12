@@ -1,13 +1,15 @@
+BIN_NAME=on-modify.add-done-tag
+
 all: build
 
 build:
 	go build .
 
 install: build
-	mv on-modify.add-done-tag ~/.task/hooks/
+	mv "${BIN_NAME}" ~/.task/hooks/
 
 uninstall:
-	rm ~/.task/hooks/on-modify.add-done-tag
+	rm "~/.task/hooks/${BIN_NAME}"
 
 clean:
-	$(RM) on-modify.add-done-tag
+	$(RM) "${BIN_NAME}"

@@ -1,4 +1,4 @@
-# Boilerplate Code for Taskwarrior Hooks in Golang (Work in Progress)
+# Boilerplate Code for Taskwarrior Hooks in Golang
 
 [Taskwarrior](https://taskwarrior.org/) is a Free and Open Source Software that manages your TODO list from the command line. It allows it's users to create [hooks](https://taskwarrior.org/docs/hooks), which extent the functionality of this tool. The community around Taskwarrior created many examples and tutorials for writing hooks in Python (e.g. [this guide](https://taskwarrior.org/docs/hooks_guide/)), but there is significantly smaller amount of similar resources for other languages.
 
@@ -30,12 +30,36 @@ go mod init <name>
 
 The `<name>` should be in the format `<hook>.<something>`, where `<something>` is some description of the hook's functionality. E.g. `on-modify.check-grammar`.
 
+Update the name of binary in the `Makefile`.
+
 Then you can build the project:
 ```
-go build .
+make build
 ```
 
 And finally move the final binary to `~/.task/hooks/` with:
 ```
 mv <hook>.<something> ~/.task/hooks/
 ```
+
+Alternatively, you can build and move the binary into `~/.task/hooks` folders in one go with:
+```
+make install
+```
+
+If you don't want to use the hook anymore, you can simply run:
+```
+make uninstall
+```
+which will delete the hook from the `~/.task/hooks` folder.
+
+## Limitations
+
+According to the Taskwarrior's [Github page](https://github.com/GothenburgBitFactory/taskwarrior/blob/develop/docs/rfcs/task.md), there MAY be other fields than those listed in a task definition in the documentation. Such fields MUST be preserved intact by any client, which means that if a task is downloaded that contains an unrecognized field, that field MUST not be modified, and MUST continue to exist in the task. User Defined Attributes (UDAs) are considered additional fields.
+
+At the moment, there is no support for additional unrecognized fields by this boilerplate. Moreover, some attributes haven't been implemented yet, for example those used by recurrent tasks. 
+
+## To-Do
+
+- [ ] Implement all the attributes from the Taskwarrior's [Github page](https://github.com/GothenburgBitFactory/taskwarrior/blob/develop/docs/rfcs/task.md)
+- [ ] Add more examples? Maybe?
