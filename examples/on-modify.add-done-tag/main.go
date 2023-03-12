@@ -4,23 +4,25 @@ import (
 	"fmt"
 )
 
-func updateTasks(oldTasks []Task, newTasks []Task) {
-	for index, _ := range newTasks {
-		if oldTasks[index].Status == "pending" && newTasks[index].Status == "done" {
-			newTasks[index].Tags = append(newTasks[index].Tags, "Done")
+func updateTask(oldTask *Task, newTask *Task) {
+	if *(oldTask.Status) == "pending" && *(newTask.Status) == "completed" {
+		if newTask.Tags != nil {
+			newTask.Tags = append(newTask.Tags, "Done")
+		} else {
+			newTask.Tags = []string{"Done"}
 		}
 	}
 }
 
 func main() {
-	oldTasks, newTasks, err := parseTasksFromStdin()
+	oldTask, newTask, err := parseTaskFromStdin()
 
 	if err != nil {
 		fmt.Println("Error!")
 	}
 
-	updateTasks(oldTasks, newTasks)
+	updateTask(&oldTask, &newTask)
 
-	newTasksStr, _ := TaskToJSON(newTasks)
-	fmt.Println(newTasksStr)
+	newTaskStr, _ := newTask.JSON()
+	fmt.Println(newTaskStr)
 }
