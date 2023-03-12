@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func updateTasks(oldTasks []Task, newTasks []Task) {
+func updateTask(oldTask Task, newTask Task) {
 	// Get a environment variable with the log file
 	logFile := os.Getenv("TASKWARRIOR_LOG")
 
@@ -19,22 +19,20 @@ func updateTasks(oldTasks []Task, newTasks []Task) {
 	defer file.Close()
 
 	// Go through all changed tasks, and log the changes
-	for index, _ := range newTasks {
-		newTasksStr, _ := newTasks[index].JSON()
-		oldTasksStr, _ := oldTasks[index].JSON()
-		file.WriteString(fmt.Sprintf("The task changed from '%s' to '%s'.\n", oldTasksStr, newTasksStr))
-	}
+	newTaskStr, _ := newTask.JSON()
+	oldTaskStr, _ := oldTask.JSON()
+	file.WriteString(fmt.Sprintf("The task changed from '%s' to '%s'.\n", oldTaskStr, newTaskStr))
 }
 
 func main() {
-	oldTasks, newTasks, err := parseTasksFromStdin()
+	oldTask, newTask, err := parseTaskFromStdin()
 
 	if err != nil {
 		fmt.Println("Error!")
 	}
 
-	updateTasks(oldTasks, newTasks)
+	updateTask(oldTask, newTask)
 
-	newTasksStr, _ := TaskToJSON(newTasks)
-	fmt.Println(newTasksStr)
+	newTaskStr, _ := newTask.JSON()
+	fmt.Println(newTaskStr)
 }
