@@ -5,6 +5,11 @@ This simple example shows how to create a Taskwarrior on-modify hook that append
 ## How to build and install
 
 ```
-go build .
-mv on-modify.add-done-tag ~/.task/hooks/
+make install
+```
+
+## Uninstall 
+
+```
+make uninstall
 ```
